@@ -5,21 +5,21 @@ from app.models.rentDetails import RentDetails
 from app.schema.requests.rentDetailsCreateRequest import RentDetailsCreateRequest
 
 
-def get_all_rent_details(db: Session):
-    rentDetails = db.query(RentDetails).all()
+def get_all_rent_details(user_id:str,db: Session):
+    rentDetails = db.query(RentDetails).filter(RentDetails.user_id == user_id).all()
     return rentDetails
 
 
-def create_rent_details(request: RentDetailsCreateRequest, db: Session):
-    rentDetails = RentDetails(**request.dict())
+def create_rent_details(user_id:str,request: RentDetailsCreateRequest, db: Session):
+    rentDetails = RentDetails(**request.dict(),user_id=user_id)
     db.add(rentDetails)
     db.commit()
     db.refresh(rentDetails)
     return rentDetails
 
 
-def delete_rent_details(id: UUID, db: Session):
-    rentDetail = db.query(RentDetails).filter(RentDetails.rent_id == id)
+def delete_rent_details(user_id:str,id: UUID, db: Session):
+    rentDetail = db.query(RentDetails).filter(RentDetails.rent_id == id).filter(RentDetails.user_id == user_id)
     if not rentDetail.first():
         raise_exception(id)
     rentDetail.delete(synchronize_session=False)
@@ -27,8 +27,8 @@ def delete_rent_details(id: UUID, db: Session):
     return 'deleted'
 
 
-def update_rent_details(id: UUID, request: RentDetailsCreateRequest, db: Session):
-    rentDetail = db.query(RentDetails).filter(RentDetails.rent_id == id)
+def update_rent_details(user_id: str,id: UUID, request: RentDetailsCreateRequest, db: Session):
+    rentDetail = db.query(RentDetails).filter(RentDetails.rent_id == id).filter(RentDetails.user_id == user_id)
     if not rentDetail.first():
         raise_exception(id)
     rentDetail.update(request.dict())
@@ -36,9 +36,9 @@ def update_rent_details(id: UUID, request: RentDetailsCreateRequest, db: Session
     return 'updated'
 
 
-def get_rent_details_by_id(id: UUID, db):
+def get_rent_details_by_id(user_id: str,id: UUID, db):
     rentDetail = db.query(RentDetails).filter(
-        RentDetails.rent_id == id).first()
+        RentDetails.rent_id == id).filter(RentDetails.user_id == user_id).first()
     if not rentDetail:
         raise_exception(id)
     return rentDetail
