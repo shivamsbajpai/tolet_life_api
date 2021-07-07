@@ -53,6 +53,10 @@ def register_user(request: UserCreateRequest, db: Session):
     db.commit()
     db.refresh(user)
 
+    subject = sendEmailService.register_email_subject()
+    body = sendEmailService.register_email_body(request.name)
+    sendEmailService.send_email(request.email, subject, body)
+
     return
 
 
