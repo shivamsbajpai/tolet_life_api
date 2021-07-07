@@ -5,8 +5,10 @@ from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "postgresql://toletlife:root@localhost:5432/toletlifedev"
 
-if(os.getenv("ENVIRONMENT") == "STAGING"):
-    SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+if(os.environ("ENVIRONMENT") == "STAGING"):
+    SQLALCHEMY_DATABASE_URL = os.environ("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
