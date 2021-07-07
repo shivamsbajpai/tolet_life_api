@@ -5,7 +5,6 @@ from app.models.rentDetails import RentDetails
 from app.schema.requests.rentDetailsCreateRequest import RentDetailsCreateRequest
 
 
-
 def get_all_rent_details(db: Session):
     rentDetails = db.query(RentDetails).all()
     return rentDetails

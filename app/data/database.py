@@ -6,7 +6,6 @@ from sqlalchemy.orm import sessionmaker
 SQLALCHEMY_DATABASE_URL = "postgresql://toletlife:root@localhost:5432/toletlifedev"
 
 
-
 if(os.environ.get("ENVIRONMENT") == "STAGING"):
     SQLALCHEMY_DATABASE_URL = os.environ.get("SQLALCHEMY_DATABASE_URL")
 
