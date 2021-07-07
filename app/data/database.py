@@ -8,7 +8,7 @@ SQLALCHEMY_DATABASE_URL = "postgresql://toletlife:root@localhost:5432/toletlifed
 
 
 if(os.environ.get("ENVIRONMENT") == "STAGING"):
-    SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URL = os.environ.get("SQLALCHEMY_DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
