@@ -5,7 +5,6 @@ from app.models.status import Status
 from app.schema.requests.statusCreateRequest import StatusCreateRequest
 
 
-
 def get_all_status_details(db: Session):
     statusDetails = db.query(Status).all()
     return statusDetails

@@ -6,8 +6,12 @@ from app.data import database
 from app.schema.requests.statusCreateRequest import StatusCreateRequest
 from app.schema.responses.statusResponse import StatusResponse
 from app.services import statusService
+from app.services.authenticationService import AuthHandler
+
 
 get_db = database.get_db
+auth_handler = AuthHandler()
+
 
 router = APIRouter(
     prefix="/status",
@@ -16,25 +20,25 @@ router = APIRouter(
 
 
 @router.get('/', response_model=List[StatusResponse])
-def get_all_status_details(db: Session = Depends(database.get_db)):
+def get_all_status_details(db: Session = Depends(database.get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.get_all_status_details(db)
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create_status_details(request: StatusCreateRequest, db: Session = Depends(get_db)):
+def create_status_details(request: StatusCreateRequest, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.create_status_details(request, db)
 
 
 @router.delete('/{id}', status_code=status.HTTP_202_ACCEPTED)
-def delete_status_details(id: UUID, db: Session = Depends(get_db)):
+def delete_status_details(id: UUID, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.delete_status_details(id, db)
 
 
 @router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update_status_details(id: UUID, request: StatusCreateRequest, db: Session = Depends(get_db)):
+def update_status_details(id: UUID, request: StatusCreateRequest, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.update_status_details(id, request, db)
 
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=StatusResponse)
-def get_status_details_by_id(id: UUID, db: Session = Depends(get_db)):
+def get_status_details_by_id(id: UUID, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.get_status_details_by_id(id, db)
