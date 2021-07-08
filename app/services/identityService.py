@@ -33,7 +33,7 @@ def send_otp_request(request: OtpCreateRequest, db: Session):
     db.add(save_otp)
     db.commit()
     db.refresh(save_otp)
-    return {"otpResponse":"Otp sent to {request.email}."}
+    return {"otpResponse":f"Otp sent to {request.email}."}
 
 
 def register_user(request: UserCreateRequest, db: Session):
