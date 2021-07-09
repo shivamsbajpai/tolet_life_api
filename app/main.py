@@ -11,6 +11,17 @@ app = FastAPI(
 )
 version_prefix='/api/v1'
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 Base.metadata.create_all(engine)
 
 app.include_router(identityRouter.router,prefix=version_prefix)
