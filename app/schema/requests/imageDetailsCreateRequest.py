@@ -5,4 +5,4 @@ from typing import List
 
 class ImageDetailsCreateRequest(BaseModel):
     rent_id: UUID
-    image_urls: list(str)
+    image_url: str
