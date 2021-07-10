@@ -16,9 +16,3 @@ def save_image_details(user_id:str,request: ImageDetailsCreateRequest, db: Sessi
     db.commit()
     db.refresh(image_details)
     return
-
-
-
-def raise_exception(id: UUID):
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"status details with the id {id} is not available.")
