@@ -1,3 +1,4 @@
+import os
 from uuid import UUID
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
@@ -8,7 +9,9 @@ from app.schema.requests.imageDetailsCreateRequest import ImageDetailsCreateRequ
 
 
 def save_image_details(user_id:str,request: ImageDetailsCreateRequest, db: Session):
-    image_details = ImageDetails(rent_id=request.rent_id,user_id=user_id,image_url=request.image_url)
+    bucket_name = os.environ.get('S3_BUCKET')
+    create_url = f"https://{bucket_name}.s3.us-east-2.amazonaws.com/{request.rent_id}/{request.file_name}"
+    image_details = ImageDetails(rent_id=request.rent_id,user_id=user_id,image_url=create_url)
     db.add(image_details)
     db.commit()
     db.refresh(image_details)
