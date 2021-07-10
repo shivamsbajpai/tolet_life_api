@@ -10,7 +10,7 @@ import os
 class AuthHandler():
     security = HTTPBearer()
     pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto")
-    secret = os.environ.get("SECRET")
+    secret = os.environ.get("SECRET_JWT")
 
     def get_password_hash(self, password):
         return self.pwd_context.hash(password)
