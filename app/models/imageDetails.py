@@ -1,5 +1,5 @@
 import uuid
-import sqlalchemy
+from sqlalchemy.sql.sqltypes import DateTime
 from ..data.database import Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
@@ -12,3 +12,4 @@ class ImageDetails(Base):
     rent_id = Column(UUID(as_uuid=True), ForeignKey(RentDetails.rent_id))
     user_id = Column(UUID(as_uuid=True), ForeignKey(User.user_id))
     image_url = Column(String)
+    last_updated = Column(DateTime)
