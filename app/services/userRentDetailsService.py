@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 from uuid import UUID
 from fastapi import HTTPException, status
@@ -15,7 +16,7 @@ def get_all_rent_details(user_id:str,db: Session):
 
 
 def create_rent_details(user_id:str,request: RentDetailsCreateRequest, db: Session):
-    rentDetails = RentDetails(**request.dict(),user_id=user_id)
+    rentDetails = RentDetails(**request.dict(),user_id=user_id,last_updated = datetime.utcnow())
     db.add(rentDetails)
     db.commit()
     db.refresh(rentDetails)
