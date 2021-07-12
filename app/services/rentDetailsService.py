@@ -9,16 +9,22 @@ from app.services import userRentDetailsService
 
 def get_all_rent_details(db: Session):
     rentDetails = db.query(RentDetails).all()
-    response = userRentDetailsService.create_response_list(rentDetails,db)
+    response = userRentDetailsService.create_response_list(rentDetails, db)
     return response
 
 
-def get_all_rent_details_by_search_term(search_term: str, db: Session):
+def get_all_rent_details_by_address_search_term(search_term: str, db: Session):
     rentDetails = db.query(RentDetails).filter(or_(RentDetails.address.ilike(f"%{search_term}%"), RentDetails.area.ilike(
         f"%{search_term}%"), RentDetails.city.ilike(f"{search_term}%"), RentDetails.state.ilike(f"%{search_term}%"))).all()
-    response = userRentDetailsService.create_response_list(rentDetails,db)
+    response = userRentDetailsService.create_response_list(rentDetails, db)
     return response
-    return rentDetails
+
+
+def get_all_rent_details_by_product_search_term(search_term: str, db: Session):
+    rentDetails = db.query(RentDetails).filter(or_(RentDetails.product_name.ilike(f"%{search_term}%"), RentDetails.product_description.ilike(
+        f"%{search_term}%"))).all()
+    response = userRentDetailsService.create_response_list(rentDetails, db)
+    return response
 
 
 def get_rent_details_by_id(id: UUID, db):
@@ -32,5 +38,3 @@ def get_rent_details_by_id(id: UUID, db):
 def raise_exception(id: UUID):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                         detail=f"rent details with the id {id} is not available.")
-
-

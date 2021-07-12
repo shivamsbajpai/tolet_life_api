@@ -17,33 +17,3 @@ def create_status_details(request: StatusCreateRequest, db: Session):
     db.refresh(statusDetail)
     return statusDetail
 
-
-def delete_status_details(id: UUID, db: Session):
-    statusDetail = db.query(Status).filter(Status.status_id == id)
-    if not statusDetail.first():
-        raise_exception(id)
-    statusDetail.delete(synchronize_session=False)
-    db.commit()
-    return 'deleted'
-
-
-def update_status_details(id: UUID, request: StatusCreateRequest, db: Session):
-    statusDetail = db.query(Status).filter(Status.status_id == id)
-    if not statusDetail.first():
-        raise_exception(id)
-    statusDetail.update(request.dict())
-    db.commit()
-    return 'updated'
-
-
-def get_status_details_by_id(id: UUID, db):
-    statusDetail = db.query(Status).filter(
-        Status.status_id == id).first()
-    if not statusDetail:
-        raise_exception(id)
-    return statusDetail
-
-
-def raise_exception(id: UUID):
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"status details with the id {id} is not available.")
