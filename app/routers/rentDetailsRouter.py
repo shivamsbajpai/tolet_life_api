@@ -21,9 +21,13 @@ router = APIRouter(
 def get_all_rent_details(db: Session = Depends(database.get_db), user_id=Depends(auth_handler.auth_wrapper)):
     return rentDetailsService.get_all_rent_details(db)
 
-@router.get('/search')
-def get_all_rent_details_by_search_term(search_term: str,db: Session = Depends(get_db), user_id=Depends(auth_handler.auth_wrapper)):
-    return rentDetailsService.get_all_rent_details_by_search_term(search_term,db)
+@router.get('/searchbyaddress')
+def get_all_rent_details_by_address_search_term(search_term: str,db: Session = Depends(get_db), user_id=Depends(auth_handler.auth_wrapper)):
+    return rentDetailsService.get_all_rent_details_by_address_search_term(search_term,db)
+
+@router.get('/searchbyproduct')
+def get_all_rent_details_by_product_search_term(search_term: str,db: Session = Depends(get_db), user_id=Depends(auth_handler.auth_wrapper)):
+    return rentDetailsService.get_all_rent_details_by_product_search_term(search_term,db)
 
 @router.get('/{id}', status_code=status.HTTP_200_OK)
 def get_rent_details_by_id(id: UUID, db: Session = Depends(get_db), user_id=Depends(auth_handler.auth_wrapper)):

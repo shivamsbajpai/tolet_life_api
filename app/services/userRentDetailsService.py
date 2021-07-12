@@ -68,12 +68,16 @@ def create_response(rent: RentDetails,db:Session):
     image_url_list = get_image_urls(rent.rent_id,db)
     response.rent_id = rent.rent_id
     response.user_id = rent.user_id
+    response.product_name = rent.product_name
+    response.product_category_id = rent.product_category_id
+    response.product_description = rent.product_description
+    response.security_deposit = rent.security_deposit
+    response.monthly_rent = rent.monthly_rent
     response.address = rent.address
     response.area = rent.area
     response.city = rent.city
     response.state = rent.state
     response.status_id = rent.status_id
-    response.monthly_rent = rent.monthly_rent
     response.pincode = rent.pincode
     response.image_urls = image_url_list
     return response
