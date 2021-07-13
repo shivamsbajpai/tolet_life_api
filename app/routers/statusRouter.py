@@ -22,7 +22,3 @@ router = APIRouter(
 def get_all_status_details(db: Session = Depends(database.get_db), user=Depends(auth_handler.auth_wrapper)):
     return statusService.get_all_status_details(db)
 
-
-@router.post('/', status_code=status.HTTP_201_CREATED)
-def create_status_details(request: StatusCreateRequest, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
-    return statusService.create_status_details(request, db)
