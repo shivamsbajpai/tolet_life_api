@@ -22,7 +22,3 @@ router = APIRouter(
 def get_all_product_categories(db: Session = Depends(database.get_db), user=Depends(auth_handler.auth_wrapper)):
     return productCategoryService.get_all_product_categories(db)
 
-
-@router.post('/', status_code=status.HTTP_201_CREATED)
-def create_product_category(request: ProductCategoryCreateRequest, db: Session = Depends(get_db), user=Depends(auth_handler.auth_wrapper)):
-    return productCategoryService.create_product_category(request, db)
