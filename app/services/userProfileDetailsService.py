@@ -14,8 +14,10 @@ def update_profile_details(request: UserProfileUpdateRequest,user_id: str,db: Se
     userProfile = db.query(User).filter(User.user_id == user_id).first()
     if not userProfile:
         raise_exception(user_id)
-    userProfile.name = request.name
-    userProfile.phone_number = request.phone_number
+    if(request.name != ""):
+        userProfile.name = request.name
+    if(request.phone_number != "+91"):
+        userProfile.phone_number = request.phone_number
     db.commit()
     return 'updated'
 
