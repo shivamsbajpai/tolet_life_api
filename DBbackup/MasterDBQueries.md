@@ -29,6 +29,7 @@ FROM public."Status"
 ORDER BY "status_id";
 ```
 
+
 ### Queries
 
 ```sql
