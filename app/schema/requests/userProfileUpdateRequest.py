@@ -9,6 +9,8 @@ class UserProfileUpdateRequest(BaseModel):
 
     @validator("phone_number")
     def phone_validation(cls, v):
+        if v == "+91":
+            return v
         if not bool(re.search("^\\+[1-9]\\d{1,14}$", v)):
             raise ValueError('invalid phone number')
         if not len(v) == 13:
