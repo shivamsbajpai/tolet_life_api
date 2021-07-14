@@ -10,6 +10,8 @@ class RentDetailsResponse():
     product_description: str
     security_deposit: str
     monthly_rent: str
+    owner_name: str
+    owner_email: str
     pincode: str
     area: str
     city: str
