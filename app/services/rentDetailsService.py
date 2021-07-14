@@ -1,3 +1,4 @@
+from app.models.user import User
 from uuid import UUID
 from sqlalchemy import or_
 from fastapi import HTTPException, status
@@ -33,6 +34,7 @@ def get_rent_details_by_id(id: UUID, db):
     if not rentDetail:
         raise_exception(id)
     return rentDetail
+
 
 
 def raise_exception(id: UUID):
