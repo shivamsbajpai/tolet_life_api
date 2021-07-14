@@ -18,6 +18,9 @@ def update_profile_details(request: UserProfileUpdateRequest,user_id: str,db: Se
     userProfile = db.query(User).filter(User.user_id == user_id).first()
     if not userProfile:
         raise_exception(user_id)
+    if(request.name == "" and request.phone_number == "+91"):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail=f"Both fields can not be empty")
     if(request.name != ""):
         userProfile.name = request.name
     if(request.phone_number != "+91"):
