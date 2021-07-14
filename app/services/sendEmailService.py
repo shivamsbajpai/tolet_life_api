@@ -40,3 +40,8 @@ def register_email_subject():
 def register_email_body(name: str):
     body = f"Hello {name},\n\nThank you for the registration. You can now enjoy the ToLet Life.\n\nYou can find your perfect home.\nAlso, You can help somebody find their perfect home by renting out your place.\n\nRegards,\nToLet Life Team"
     return body
+
+
+def feedback_email_subject(name: str,email: str):
+    subject = f"VERY IMPORTANT: Feedback from {name}. Contact at {email}"
+    return subject
