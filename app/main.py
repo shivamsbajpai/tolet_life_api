@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .data.database import engine, Base
-from .routers import rentDetailsRouter, statusRouter, identityRouter, imageRouter, userRentDetailsRouter, productCategoryRouter, userProfileDetailsRouter
+from .routers import rentDetailsRouter, statusRouter, identityRouter, imageRouter, userRentDetailsRouter, productCategoryRouter, userProfileDetailsRouter, feedbackRouter
 
 tags_metadata = [
     {
@@ -29,10 +29,11 @@ app.add_middleware(
 
 Base.metadata.create_all(engine)
 
+app.include_router(feedbackRouter.router,prefix=version_prefix)
 app.include_router(identityRouter.router, prefix=version_prefix)
 app.include_router(imageRouter.router, prefix=version_prefix)
 app.include_router(rentDetailsRouter.router, prefix=version_prefix)
 app.include_router(userRentDetailsRouter.router, prefix=version_prefix)
-app.include_router(userProfileDetailsRouter.router,prefix=version_prefix)
+app.include_router(userProfileDetailsRouter.router, prefix=version_prefix)
 app.include_router(productCategoryRouter.router, prefix=version_prefix)
 app.include_router(statusRouter.router, prefix=version_prefix)
