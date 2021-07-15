@@ -7,7 +7,7 @@ tags_metadata = [
     {
         "name": "ToLet Life API",
         "externalDocs": {
-            "description": "Created with love ❤️. Contact developer",
+            "description": "Created with love ❤️. Developer wants to connect with you",
             "url": "https://tinyurl.com/3jyarv3h",
         },
     },
