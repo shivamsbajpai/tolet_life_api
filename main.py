@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .data.database import engine, Base
-from .routers import rentDetailsRouter, statusRouter, identityRouter, imageRouter, userRentDetailsRouter, productCategoryRouter, userProfileDetailsRouter, feedbackRouter
+import uvicorn
+from app.data.database import engine, Base
+from app.routers import rentDetailsRouter, statusRouter, identityRouter, imageRouter, userRentDetailsRouter, productCategoryRouter, userProfileDetailsRouter, feedbackRouter
 
 tags_metadata = [
     {
@@ -37,3 +38,6 @@ app.include_router(userRentDetailsRouter.router, prefix=version_prefix)
 app.include_router(userProfileDetailsRouter.router, prefix=version_prefix)
 app.include_router(productCategoryRouter.router, prefix=version_prefix)
 app.include_router(statusRouter.router, prefix=version_prefix)
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=4000, host="0.0.0.0")

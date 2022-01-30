@@ -1,16 +1,14 @@
 FROM python:3.8
 
 
-ENV PORT 8000
-
-
 # set working directory
-WORKDIR /usr/src/toletlife
-COPY . /usr/src/toletlife
+WORKDIR /toletlife
+COPY requirements.txt .
 
 
-RUN pip install -r ./requirements.txt
-EXPOSE ${PORT}
+RUN pip install -r requirements.txt
+
+COPY . .
 
 
-CMD ["uvicorn","app.main:app","--host","0.0.0.0","--port","8000"]
+CMD ["python","main.py"]
